@@ -7,7 +7,7 @@
  */
 
 (function (globalEval) {
-define(/*=='curl/plugin/json',==*/ ['./_fetchText'], function (fetchText) {
+define(/*=='curl/plugin/json',==*/ ['./underfetchText'], function (fetchText) {
 
 	var hasJsonParse, missingJsonMsg;
 

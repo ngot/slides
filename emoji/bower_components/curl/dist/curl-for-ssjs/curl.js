@@ -1338,7 +1338,7 @@
 	};
 
 }(this.window || (typeof global != 'undefined' && global) || this));
-define('curl/plugin/_fetchText', [], function () {
+define('curl/plugin/underfetchText', [], function () {
 
 	var xhr, progIds;
 
@@ -1391,7 +1391,7 @@ define('curl/plugin/_fetchText', [], function () {
 
 });
 (function (freeRequire) {
-define('curl/shim/_fetchText', function () {
+define('curl/shim/underfetchText', function () {
 
 	var fs, http, url;
 
@@ -1454,7 +1454,7 @@ define('curl/shim/_fetchText', function () {
 define['amd'].ssjs = true;
 var require, load;
 (function (freeRequire, globalLoad) {
-define('curl/shim/ssjs', ['curl/_privileged', './_fetchText'], function (priv, _fetchText) {
+define('curl/shim/ssjs', ['curl/_privileged', './underfetchText'], function (priv, underfetchText) {
 "use strict";
 
 	var cache, config,
@@ -1473,9 +1473,9 @@ define('curl/shim/ssjs', ['curl/_privileged', './_fetchText'], function (priv, _
     hasProtocolRx = /^\w+:/;
 	extractProtocolRx = /(^\w+:)?.*$/;
 
-	// force-overwrite the xhr-based _fetchText
+	// force-overwrite the xhr-based underfetchText
 	if (typeof XMLHttpRequest == 'undefined') {
-		cache['curl/plugin/_fetchText'] = _fetchText;
+		cache['curl/plugin/underfetchText'] = underfetchText;
 	}
 
     protocol = fixProtocol(config.defaultProtocol)
@@ -1602,7 +1602,7 @@ define('curl/shim/ssjs', ['curl/_privileged', './_fetchText'], function (priv, _
  */
 (function (global, document, globalEval) {
 
-define('curl/loader/cjsm11', ['../plugin/_fetchText', 'curl/_privileged'], function (fetchText, priv) {
+define('curl/loader/cjsm11', ['../plugin/underfetchText', 'curl/_privileged'], function (fetchText, priv) {
 
 	var head, insertBeforeEl, extractCjsDeps, checkToAddJsExt;
 
