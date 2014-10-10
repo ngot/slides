@@ -1,4 +1,130 @@
 <div class="slide-layout-title">
-	<h1>跨终端Emoji</h1>
-	<h2>emoji 表情的应用</h2>
+    <h1>跨终端Emoji</h1>
+    <br>
+    <h4>孢子社区 - 庄恒飞</h4>
+
+    <div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <a style="float: right;" href="http://baoz.me" target="_blank">http://baoz.me</a>
+    </div>
+
 </div>
+
+<hr>
+<br>
+<br>
+<br>
+<h2>什么是Emoji？</h2>
+<br>
+<br>
+<img style="float: right" src="imgs/e.png">
+
+
+<hr>
+<br>
+<br>
+<br>
+<h2>如何支持？</h2>
+
+<hr>
+<br>
+<br>
+<br>
+<h2>孢子Emoji方案演进</h2>
+
+<hr>
+<br>
+<br>
+<br>
+<h2>第一阶段:ios5-6时代</h2>
+
+<hr>
+<h3>问题来了：</h3>
+<p>ios7和Mac OSX 10.9发布后,他们输入的部分emoji在浏览器上出现<img src="imgs/error.png"></p>
+
+<hr>
+<h3>问题原因：</h3>
+<p>ios7和OSX10.9录入的emoji编码和之前相比出现了变化，一些emoi在原编码基础上补上了一位'\ufe0f'</p>
+<p>比如：<img src="imgs/120.png">，在ios5和ios6上由'\u261d'组成，而在ios7上则由'\u261d\ufe0f'组成</p>
+
+<hr>
+<br>
+<br>
+<br>
+<h2>第二阶段:ios7和Mac OSX 10.9发布后</h2>
+
+<hr>
+<h3>问题来了：</h3>
+<p>
+    <b>孢子新的移动平台采用Titanium，titanium上对utf8进行解码，如果遇到D800-DFFF范围unicode字符，会出现解码错误，导致乱码产生。</b>
+    <img style="width: 275px; float: right" src="imgs/luanma.jpg">
+</p>
+
+
+<hr>
+<h3>问题原因：</h3>
+<p>
+    emoji一部分表情，由多个字节组成，且第一位为落在D800-DFFF区间的utf-16扩展标识，在unicode中他们并不代表任何合法的值
+    。在Titanium上utf8解码，把第一个引导位，当做了合法字符去解析，导致解码错误产生乱码。在个别安卓手机中，录入emoji表情，回删表情，
+    只能删除表情的一部分字节，会留下第一位引导字节位，导致非法的引导位进入数据库，最终出现在Ti客户端上导致乱码产生。
+</p>
+
+
+<hr>
+<br>
+<br>
+<br>
+<h2>第三阶段:Ti移动端时代</h2>
+
+
+<hr>
+<h3>问题来了：</h3>
+<p>
+    <b>Android4.4.2和win8.1发布了，他们开始原生支持emoji显示，并且Mac下的safari和Firefox也都支持原生显示，此前的方案无法原生支持</b>
+    <br>
+    <img style="width: 275px; float: right" src="imgs/e.png">
+</p>
+
+
+<hr>
+<h3>问题原因：</h3>
+<p>
+    此前方案中逻辑中判断了设备，其实是硬编码方法，不具有自动扩展性，无法应对快速发展的emoji
+</p>
+
+<hr>
+<br>
+<br>
+<br>
+<h2>第四阶段:Android4.4.2和win8.1发布后（目前孢子运行的方案）</h2>
+
+
+<hr>
+<h3>迟早会来的问题：</h3>
+<p>
+    多版本数量不等
+    <br><br>
+    <a style="float: right" href="http://unicode.org/draft/reports/tr51/full-emoji-list.html"
+       target="_blank">Emoji草案</a>
+</p>
+
+
+<hr>
+<h2>总结</h2>
+<br>
+<ul>
+    <li>emoji就是新时代的浏览器，兼容性太坑</li>
+    <li>支持emoji是一个长期任务</li>
+    <li>emoji越来越标准化</li>
+</ul>
+
+
+<hr>
+<br>
+<br>
+<br>
+<h2>Thank you!</h2>
+
