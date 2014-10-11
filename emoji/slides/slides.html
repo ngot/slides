@@ -50,15 +50,69 @@
 
 <hr>
 <br>
-<br>
-<br>
-<h2>孢子Emoji方案演进</h2>
+<h2>Emoji编码</h2>
+<ul>
+    <li>SoftBank</li>
+    <li>DoCoMo</li>
+    <li>KDDI</li>
+    <li>
+        Unicode:
+        <br><br>
+
+        <ul>
+            <li>ios5-6</li>
+            <li>ios7</li>
+            <li>Mac OSX 10.9</li>
+        </ul>
+    </li>
+</ul>
 
 <hr>
 <br>
 <br>
 <br>
+<h2>孢子Emoji方案演进</h2>
+
+
+<hr>
 <h2>第一阶段:ios5-6时代</h2>
+<br>
+<ul>
+    <li>
+       存储：
+        <br>
+        <br>
+        <ul style="font-size: 25px">
+            <li>以ios5编码作为存储格式</li>
+            <li>Mysql编码调整成UTF8MB4</li>
+        </ul>
+    </li>
+
+    <li>
+        录入：
+        <br>
+        <br>
+        <ul style="font-size: 25px">
+            <li>ios1-4：softbank编码转成ios5编码</li>
+            <li>ios5-6：直接存储</li>
+            <li>Android：不做处理，没考虑安卓的emoji录入</li>
+            <li>桌面：录入图片，根据图片href转成ios5编码</li>
+        </ul>
+    </li>
+
+    <li>
+        显示：
+        <br>
+        <br>
+        <ul style="font-size: 25px">
+            <li>全局字体：‘Apple Color Emoji’</li>
+            <li>ios1-4：ios5编码转成softbank编码</li>
+            <li>ios5-6：直接显示</li>
+            <li>Android和桌面：ios5转成图片</li>
+        </ul>
+    </li>
+</ul>
+
 
 <hr>
 <h2>现在问题来了!</h2>
@@ -79,33 +133,119 @@
 
 <hr>
 <br>
-<br>
-<br>
 <h2>第二阶段:ios7和Mac OSX 10.9发布后</h2>
+<ul>
+    <li>
+        存储：
+        <br>
+        <br>
+        <ul style="font-size: 25px">
+            <li>以ios5, ios7编码作为存储格式</li>
+            <li>Mysql编码UTF8MB4</li>
+        </ul>
+    </li>
+
+    <li>
+        录入：
+        <br>
+        <br>
+        <ul style="font-size: 25px">
+            <li>ios1-4：softbank编码转成ios5编码</li>
+            <li>ios5-7：直接存储</li>
+            <li>Android：调查发现，安卓一些键盘带有录入emoji功能，且编码格式为ios5编码格式，直接存储</li>
+            <li>桌面：录入图片，根据图片href转成ios5编码</li>
+        </ul>
+    </li>
+
+    <li>
+        显示：
+        <br>
+        <br>
+        <ul style="font-size: 25px">
+            <li>全局字体：‘Apple Color Emoji’</li>
+            <li>ios1-4：ios5编码转成softbank编码</li>
+            <li>ios5-6：直接显示</li>
+            <li>ios7：转换成ios7格式</li>
+            <li>Android和桌面：ios5和ios7转成图片</li>
+        </ul>
+    </li>
+</ul>
 
 <hr>
 <h3>问题又来了：</h3>
 <p>
-    <b>孢子新的移动平台采用Titanium，titanium上对utf8进行解码，如果遇到D800-DFFF范围unicode字符，会出现解码错误，导致乱码产生。</b>
+    <b>孢子新的移动平台采用Titanium。Titanium，如果遇到D800-DFFF范围unicode字符，会出现解码错误，导致乱码产生。如图：</b>
     <img style="width: 275px; float: right" src="imgs/luanma.jpg">
 </p>
 
 
 <hr>
 <h3>问题原因：</h3>
-<p>
-    emoji一部分表情，由多个字节组成，且第一位为落在D800-DFFF区间的utf-16扩展标识，在unicode中他们并不代表任何合法的值
-    。在Titanium上utf8解码，把第一个引导位，当做了合法字符去解析，导致解码错误产生乱码。在个别安卓手机中，录入emoji表情，回删表情，
-    只能删除表情的一部分字节，会留下第一位引导字节位，导致非法的引导位进入数据库，最终出现在Ti客户端上导致乱码产生。
-</p>
-<br>
+<ul style="font-size: 30px">
+    <li><b>
+        emoji一部分表情是UTF16编码。根据UTF16规范，合法的UTF16字符必须是0xD800..0xDBFF高位开始，0xDC00..0xDFFF低位结束。
+        单独一个高位或者低位字符，都属于无效字符。在大多数情况下，无效的utf16字符，在转码时都会出现错误.<br>
+        <b style="font-size: 25px;margin-left: 10px;color: darkgreen">
+            比如：encodeURIComponent('\ud83d'); decodeURIComponent('%ED%A0%BD');
+        </b>
+    </b>
+    </li>
+    <li>
+        <b>
+            Titanium平台，遇到无效的UTF16字符，解码错位，产生乱码。
+        </b>
+    </li>
+    <li>
+        <b>
+            在一些设备上录入emoji表情，回删表情，只能删除表情的一部分字节，会留下无效的UTF16字符
+        </b>
+    </li>
+</ul>
 参考：<a href="http://zh.wikipedia.org/zh/UTF-8" target="_blank">UTF-8 WIKI</a>
+| <a href="http://zh.wikipedia.org/wiki/Unicode%E5%AD%97%E7%AC%A6%E5%B9%B3%E9%9D%A2%E6%98%A0%E5%B0%84" target="_blank">Unicode
+    WIKI</a>
+| <a href="http://zh.wikipedia.org/wiki/UTF-16#.E4.BB.8EU.2BD800.E5.88.B0U.2BDFFF.E7.9A.84.E7.A0.81.E4.BD.8D"
+     target="_blank">Unicode16 WIKI</a>
 
 <hr>
 <br>
-<br>
-<br>
 <h2>第三阶段:Ti移动端时代</h2>
+<ul>
+    <li>
+        存储：
+        <br>
+        <br>
+        <ul style="font-size: 25px">
+            <li>以Unicode私人区域作为自定义存储</li>
+            <li>数据库已经保存的ios4，5，7格式emoji，全部转换成自定义编码</li>
+            <li>数据库D800..DFFF区间字符清洗操作</li>
+        </ul>
+    </li>
+
+    <li>
+        录入：
+        <br>
+        <br>
+        <ul style="font-size: 25px">
+            <li>不管什么设备，做统一转换成自定义编码操作</li>
+            <li>转换完成立即对内容做D800..DFFF区间字符清洗操作</li>
+        </ul>
+    </li>
+
+    <li>
+        显示：
+        <br>
+        <br>
+        <ul style="font-size: 25px">
+            <li>全局字体：‘Apple Color Emoji’</li>
+            <li>ios1-4：自定义编码转成softbank编码</li>
+            <li>ios5-6：自定义转换成ios5编码</li>
+            <li>ios7：自定义转换成ios5编码</li>
+            <li>Android和桌面：自定义转换成图片</li>
+        </ul>
+    </li>
+</ul>
+
 
 
 <hr>
@@ -120,15 +260,45 @@
 <hr>
 <h3>问题原因：</h3>
 <p>
-    此前方案中逻辑中判断了设备，其实是硬编码方法，不具有自动扩展性，无法应对快速发展的emoji
+    此前方案中判断了设备，本质是硬编码，不具有扩展性，无法应对emoji的快速发展
 </p>
 
 <hr>
 <br>
-<br>
-<br>
 <h2>第四阶段:Android4.4.2和win8.1发布后（目前孢子运行的方案）</h2>
+<ul>
+    <li>
+        存储：
+        <br>
+        <br>
+        <ul style="font-size: 25px">
+            <li>以Unicode私人区域作为自定义存储</li>
+            <li>数据库已经保存的ios4，5，7格式emoji，全部转换成自定义编码</li>
+            <li>数据库D800..DFFF区间字符清洗操作</li>
+        </ul>
+    </li>
 
+    <li>
+        录入：
+        <br>
+        <br>
+        <ul style="font-size: 25px">
+            <li>不管什么设备，做统一转换成自定义编码操作</li>
+            <li>转换完成立即对内容做D800..DFFF区间字符清洗操作</li>
+        </ul>
+    </li>
+
+    <li>
+        显示：
+        <br>
+        <br>
+        <ul style="font-size: 25px">
+            <li>全局字体：‘Apple Color Emoji’</li>
+            <li>判断设备逻辑改成：颜色检测算法，自动检测出设备是否原生支持emoji显示和支持的版本</li>
+            <li>根据自检测结果，转换相应结果</li>
+        </ul>
+    </li>
+</ul>
 
 <hr>
 <h3>定时炸弹：</h3>
@@ -139,6 +309,12 @@
        target="_blank">Emoji草案</a>
 </p>
 
+<hr>
+<h2>Emoji相关</h2>
+<br>
+<ul>
+    <li>视觉截取算法</li>
+</ul>
 
 <hr>
 <h2>总结</h2>
@@ -150,9 +326,18 @@
 </ul>
 
 <hr>
-<h3>最后一个问题：</h3>
 <br>
-<p>Emoji技术哪家强？</p>
+<h2>最后一个问题来了！</h2>
+
+<hr>
+<br>
+<h2>Emoji技术哪家强？</h2>
+
+<hr>
+<br>
+<br>
+<br>
+<h2>Question？</h2>
 
 <hr>
 <br>
