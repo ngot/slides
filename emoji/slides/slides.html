@@ -132,6 +132,15 @@
 <p>比如：<img src="imgs/120.png">，在ios5和ios6上由'\u261d'组成，而在ios7上则由'\u261d\ufe0f'组成</p>
 
 <hr>
+<h2>’\ufe0f‘是什么？</h2>
+
+<hr>
+<div style="display: inline">
+<img style="float: left;width: 550px;position: absolute;left: 50px" src="imgs/vs16.png">
+<img style="float: right;width: 750px;right: 50px;position: absolute" src="imgs/vs16p.png">
+</div>
+
+<hr>
 <h2>第二阶段:ios7和Mac OSX 10.9发布后</h2>
 <ul>
     <li>
@@ -245,10 +254,21 @@
     </li>
 </ul>
 
+<hr>
+<h2>如何平滑升级？</h2>
+<hr>
+<ul>
+    <li><b>修改前端显示逻辑，同时兼容原始编码和内码，部署升级，等待大部分用户升级完毕</b></li>
+    <li><b>调整前端录入转换逻辑，全部转换成内码存储，部署升级</b></li>
+    <li><b>因为录入逻辑代码，用户可能没那快升级，为了加快进度，后端添加对录入emoji编码的辅助转内码逻辑，并部署上线</b></li>
+    <li><b>对数据库各种emoji编码，做转换内码操作，并清理相应的缓存</b></li>
+    <li><b>过一段时间，下掉服务辅助转换逻辑和前端兼容显示代码</b></li>
+    <li><b>总结: 这一步涉及到前后端，升级周期较长。对数据库编码格式转换类型问题都应该考虑到平滑升级问题。</b></li>
+</ul>
 
 
 <hr>
-<h3>问题咋又来了：</h3>
+<h3>问题又来了：</h3>
 <p>
     <b>Android4.4.2和win8.1发布了，他们开始原生支持emoji显示，并且Mac下的safari和Firefox也都支持原生显示，此前的方案无法原生支持</b>
     <br>
@@ -313,6 +333,8 @@
 <br>
 <ul>
     <li>视觉截取算法</li>
+    <li>IE6兼容</li>
+    <li>IE11兼容</li>
 </ul>
 
 <hr>
