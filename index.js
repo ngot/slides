@@ -41,11 +41,11 @@ var speakersList = '';
 for (var i = 0; i < speakers.length; i++) {
 	var slidesLink = '';
 	if (speakers[i].slides) {
-		slidesLink = '<a href="'+speakers[i].slides+'">slides</a>';
+		slidesLink = '<a target="_blank" href="'+speakers[i].slides+'">slides</a>';
 	}
 	var confLink = speakers[i].conf;
 	if (speakers[i].website) {
-		confLink = '<a href="'+speakers[i].website+'">' + speakers[i].conf + '</a>';
+		confLink = '<a target="_blank" href="'+speakers[i].website+'">' + speakers[i].conf + '</a>';
 	}
 	speakersList += '<li>' + 
 		'<div><strong>' + speakers[i].name + '</strong>: '+ slidesLink + '</div>' +
