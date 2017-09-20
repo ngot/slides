@@ -4,7 +4,7 @@ var speakers = [
     "date": "2017.9",
     "conf": "Node.js Party Hangzhou",
     "website": "https://www.bagevent.com/event/751307",
-    "slides": "http://slides.ngot.me/pdfs/Egg.js%20%E5%9C%A8%E9%98%BF%E9%87%8C%E5%B7%B4%E5%B7%B4%E9%9B%86%E5%9B%A2%E7%9A%84%E7%9A%84%E5%AE%9E%E8%B7%B5%E8%BF%90%E7%94%A8.pdf"
+    "slides": "http://slides.ngot.me/pdfs/eggjs_in_alibaba_ngot_2017.pdf"
   },
   {
     "name": "JavaScript on Fiber",
@@ -18,14 +18,15 @@ var speakers = [
     "date": "2015.4",
     "conf": "Qcon Beijing",
     "website": "http://2015.qconbeijing.com/speakers/201779",
-    "slides": "http://www.infoq.com/cn/presentations/best-practice-of-baoz-technical-team-full-stack"
+    "slides": "http://slides.ngot.me/pdfs/Qcon_full_stack_ngot_2015.pdf",
+    "video": "http://www.infoq.com/cn/presentations/best-practice-of-baoz-technical-team-full-stack"
   },
   {
     "name": "Writing sync style & non-blocking JavaScript using fibjs",
     "date": "2014.12",
     "conf": "Node.js Party Shanghai",
     "website": "https://www.teambition.com/info/news/article?_id=5472c85c5beae35959ff67d4",
-    "slides": "http://slides.ngot.me/pdfs/fibjs%E5%90%8C%E6%AD%A5%E5%A4%A7%E6%B3%95%E5%AE%9E%E8%B7%B5.pdf"
+    "slides": "http://slides.ngot.me/pdfs/write_sync_js_ngot_2014.pdf"
   },
   {
     "name": "Cross Platform Emoji",
@@ -43,15 +44,24 @@ for (var i = 0; i < speakers.length; i++) {
 	if (speakers[i].slides) {
 		slidesLink = '<a target="_blank" href="'+speakers[i].slides+'">slides</a>';
 	}
+	var videoLink = '';
+	if (speakers[i].video) {
+		videoLink = ', <a target="_blank" href="'+speakers[i].video+'">video</a>';
+	}
 	var confLink = speakers[i].conf;
 	if (speakers[i].website) {
 		confLink = '<a target="_blank" href="'+speakers[i].website+'">' + speakers[i].conf + '</a>';
 	}
-	speakersList += '<li>' + 
-		'<div><strong>' + speakers[i].name + '</strong>: '+ slidesLink + '</div>' +
+	speakersList += '<li class="slide">' + 
+		'<div><strong>' + speakers[i].name + '</strong>: '+ slidesLink + videoLink + '</div>' +
 		'<div>@ ' + confLink + ' ' + speakers[i].date + '</div></li>';
 }
 
-$(document).ready(function(){
-	$('#slides-block').append(speakersList);
-})
+document.addEventListener("DOMContentLoaded", function(event) { 
+  var slideBlock = document.getElementById('slides-block');
+
+  slideBlock.innerHTML = speakersList;
+});
+// $(document).ready(function(){
+// 	$('#slides-block').append(speakersList);
+// })

@@ -1,10 +1,11 @@
 body {
-	width: 800px;
-	margin: 0 auto;
-	font-family: Roboto,sans-serif;
-	color: #293a46;
-	background-color: #f8f8f8;
-	font-weight: 300;
+    width: 800px;
+    max-width: 100%;
+    margin: 0 auto;
+    font-family: Roboto, sans-serif;
+    color: #293a46;
+    background-color: #f8f8f8;
+    font-weight: 300;
 }
 
 h1, h2 {
@@ -12,21 +13,42 @@ h1, h2 {
 }
 
 h1 {
-	font-size: 38px;
-	font-weight: 300;
+    font-size: 38px;
+    font-weight: 300;
 }
 
 h2 {
-	font-size: 24px;
-	font-weight: 300;
+    font-size: 24px;
+    font-weight: 300;
 }
 
-li {
-	list-style-type: none;
-	border-top: 5px solid #2A90D5;
-	background-color: #fff;
-	box-shadow: 0 2px 20px rgba(0,0,0,0.2);
-	border-radius: 5px;
-	margin: 15px;
-	padding: 15px;
+ul.slides-block {
+    margin: 0;
+    padding: 0;
+}
+
+li.slide {
+    list-style-type: none;
+    border-top: 5px solid #2A90D5;
+    background-color: #fff;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    margin: 15px;
+    padding: 15px;
+}
+
+a.social-icon.github {
+	display: inline-block;
+	vertical-align: bottom;
+	width: 28px;
+	height: 28px;
+	background-position: 0 0;
+	opacity: 0.7;
+	transition: all 0.3s ease-in-out;
+    background: url(http://wileam-file.b0.upaiyun.com/icons/github.png) no-repeat;
+}
+
+a.social-icon.github:hover {
+	opacity: 1;
+	background-position: 0 -38px;
 }
