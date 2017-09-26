@@ -4,7 +4,8 @@ var speakers = [
     "date": "2017.9",
     "conf": "Node.js Party Hangzhou",
     "website": "https://www.bagevent.com/event/751307",
-    "slides": "http://slides.ngot.me/pdfs/eggjs_in_alibaba_ngot_2017.pdf"
+    "slides": "http://slides.ngot.me/pdfs/eggjs_in_alibaba_ngot_2017.pdf",
+    "video": "https://www.youtube.com/watch?v=dm1kYrpQTjk"
   },
   {
     "name": "JavaScript on Fiber",
