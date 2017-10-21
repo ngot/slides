@@ -4,14 +4,16 @@ var speakers = [
     "date": "2017.9",
     "conf": "Node.js Party Hangzhou",
     "website": "https://www.bagevent.com/event/751307",
-    "slides": "http://slides.ngot.me/pdfs/eggjs_in_alibaba_ngot_2017.pdf"
+    "slides": "http://slides.ngot.me/pdfs/eggjs_in_alibaba_ngot_2017.pdf",
+    "video": "https://www.youtube.com/watch?v=dm1kYrpQTjk"
   },
   {
     "name": "JavaScript on Fiber",
     "date": "2016.7",
     "conf": "JS Conf",
     "website": "http://2015.jsconf.cn/",
-    "slides": "http://slides.ngot.me/pdfs/ShenJS_fibjs.pdf"
+    "slides": "http://slides.ngot.me/pdfs/ShenJS_fibjs.pdf",
+    "video": "https://www.youtube.com/watch?v=1J2fCDS4jQU&list=PLEHsmTsBKpKX8Fhrh3BCyzGJgc2f15-KY&index=19"
   },
   {
     "name": "The best practice of full stack in Baoz dev team",
