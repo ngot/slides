@@ -62,6 +62,3 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
   slideBlock.innerHTML = speakersList;
 });
-// $(document).ready(function(){
-// 	$('#slides-block').append(speakersList);
-// })
