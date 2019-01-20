@@ -1,3 +1,3 @@
-# My Community Speakers Slides
+# My Community Share Slides
 
-[slides.ngot.me](http://slides.ngot.me)
+Please visit [https://slides.ngot.me](https://slides.ngot.me) for more information.
